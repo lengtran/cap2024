@@ -1,2 +1,4 @@
-package database;public interface UserDAO {
+package database;
+
+public interface UserDAO {
 }

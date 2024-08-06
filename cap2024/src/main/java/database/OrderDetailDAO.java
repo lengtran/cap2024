@@ -1,2 +1,4 @@
-package database;public interface OrderDetailDAO {
+package database;
+
+public interface OrderDetailDAO {
 }

@@ -1,2 +1,4 @@
-package database;public interface ProductDAO {
+package database;
+
+public interface ProductDAO {
 }

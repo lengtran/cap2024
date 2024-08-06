@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j // used for logging. fancy system.out.println
 @Controller // figures out what html file that's needed
-public class LocationController {
+public class OrderController {
 
     @GetMapping("/location") // sets the url that the page is listening for. once url is added to the end of the url this function will run
     public ModelAndView location() {

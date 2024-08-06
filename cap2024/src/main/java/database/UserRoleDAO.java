@@ -1,2 +1,4 @@
-package database;public interface UserRoleDAO {
+package database;
+
+public interface UserRoleDAO {
 }
