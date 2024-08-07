@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -29,7 +30,7 @@ public class User {
     private String password;
 
     @Column(name = "create_date")
-    private Date createDate;
+    private Date createDate; //look into later
 
     @ToString.Exclude
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) private List<Order> orders;

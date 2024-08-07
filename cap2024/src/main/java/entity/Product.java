@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.List;
 
 @Setter
 @Getter
@@ -27,7 +28,7 @@ public class Product {
     private String name;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private Double price; //look into this
 
     @Column(name = "image")
     private String image;

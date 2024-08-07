@@ -22,10 +22,10 @@ public class OrderDetail {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "order_id")
+    @Column(name = "order_id", insertable = false, updatable = false)
     private Integer orderId;
 
-    @Column(name = "product_id")
+    @Column(name = "product_id", insertable = false, updatable = false)
     private Integer productId;
 
     @Column(name = "qty")

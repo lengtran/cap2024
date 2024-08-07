@@ -28,11 +28,11 @@ public class UserRole {
     @Column(name = "role_name")
     private String roleName;
 
-    @Column(name = "create_date")
+    @Column(name = "create_date") //look into later
     private Date createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id") private User user;
 
-
 }
+
