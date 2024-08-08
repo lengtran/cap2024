@@ -25,7 +25,7 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
+    @Column(name = "price", columnDefinition = "DECIMAL")
     private Double price;
 
     @Column(name = "image")

@@ -22,6 +22,13 @@
     <header class="my-4">
         <h1 class="text-center">Product List</h1>
     </header>
+
+    <!-- Search Form -->
+    <form action="/products/search" method="get" class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="${param.search}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
     <div class="row">
         <c:forEach var="product" items="${products}">
             <div class="col-md-4 mb-4">
@@ -31,7 +38,7 @@
                         <h5 class="card-title">${product.name}</h5>
                         <p class="card-text">${product.description}</p>
                         <p class="card-text"><strong>Price: $${product.price}</strong></p>
-                        <a href="#" class="btn btn-primary">View Details</a>
+                        <a href="/products/${product.id}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
             </div>

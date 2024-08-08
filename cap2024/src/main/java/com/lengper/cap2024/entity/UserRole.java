@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 
-@Table(name = "user_role")
+@Table(name = "user_roles")
 
 public class UserRole {
 
@@ -22,13 +22,13 @@ public class UserRole {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false , updatable = false)
     private Integer userId;
 
     @Column(name = "role_name")
     private String roleName;
 
-    @Column(name = "create_date") //look into later
+    @Column(name = "create_date")
     private Date createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

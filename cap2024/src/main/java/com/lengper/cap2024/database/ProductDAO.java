@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface ProductDAO extends JpaRepository<Product, Long> {
 
-//    Product findById(Integer id); //details page which will take in the id for the specific product
+    Product getProductById(Integer id);
 
     @Query("SELECT p FROM Product p")
     List<Product> findAllProducts();
 
-//    @Query("select p from Product p where p.productName like concat('%', :name, '%')")
-//    List<Product> findByName(String name); //this is for search button
+    // this query is for the search function on our products page....
+
+    @Query("SELECT p FROM Product p WHERE p.name LIKE CONCAT('%', :name, '%')")
+    List<Product> findByName(String name);
 }

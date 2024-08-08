@@ -24,11 +24,12 @@ public class Order {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "user_id")
+
+    @Column(name = "user_id", insertable = false, updatable = false )
     private Integer userId;
 
-    @Column(name = "order_date")
-    private Date title;
+    @Column(name = "order_date") //this was put as title instead of data lol
+    private Date orderDate;
 
     @ManyToOne(fetch = FetchType.LAZY) // Correct
     @JoinColumn(name = "user_id") private User user;
