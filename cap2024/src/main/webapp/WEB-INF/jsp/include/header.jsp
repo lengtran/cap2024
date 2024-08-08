@@ -30,7 +30,7 @@
                     <a class="nav-link" href="/menu">Menu</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/product">Product</a>
+                    <a class="nav-link" href="/products">Product</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +38,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/admin/location">Locations</a></li>
-                        <li><a class="dropdown-item" href="/admin/product">Products</a></li>
+                        <li><a class="dropdown-item" href="/admin/products">Products</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>

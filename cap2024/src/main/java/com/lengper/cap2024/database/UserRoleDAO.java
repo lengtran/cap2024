@@ -1,4 +1,4 @@
-package database;
+package com.lengper.cap2024.database;
 
 public interface UserRoleDAO {
 }

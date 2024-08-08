@@ -1,4 +1,4 @@
-package entity;
+package com.lengper.cap2024.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

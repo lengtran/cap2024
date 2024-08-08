@@ -1,6 +1,6 @@
-package database;
+package com.lengper.cap2024.database;
 
-import entity.Product;
+import com.lengper.cap2024.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
