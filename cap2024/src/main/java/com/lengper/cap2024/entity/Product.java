@@ -3,8 +3,6 @@ package entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 @Setter
@@ -28,7 +26,7 @@ public class Product {
     private String name;
 
     @Column(name = "price")
-    private Double price; //look into this
+    private Double price;
 
     @Column(name = "image")
     private String image;
