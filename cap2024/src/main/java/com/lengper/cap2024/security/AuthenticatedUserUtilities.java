@@ -2,6 +2,7 @@ package com.lengper.cap2024.security;
 
 
 import com.lengper.cap2024.database.UserDAO;
+import com.lengper.cap2024.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

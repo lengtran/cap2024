@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,9 +32,35 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/menu">Menu</a>
                 </li>
+
+                <sec:authorize access="isAuthenticated()">
                 <li class="nav-item">
                     <a class="nav-link" href="/products">Product</a>
                 </li>
+                </sec:authorize>
+
+                <sec:authorize access="!isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/create-account">Sign Up</a>
+                </li>
+                </sec:authorize>
+
+
+                <!-- Login and Logout links based on authentication status -->
+                <sec:authorize access="!isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/loginPageUrl">Log In</a>
+                </li>
+                </sec:authorize>
+
+
+                <sec:authorize access="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login/logout">Log Out</a>
+                </li>
+                </sec:authorize>
+
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Admin
@@ -46,6 +75,7 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
+
             </ul>
             <%--            <form class="d-flex">--%>
             <%--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--%>
