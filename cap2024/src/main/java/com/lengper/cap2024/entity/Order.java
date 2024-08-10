@@ -31,6 +31,9 @@ public class Order {
     @Column(name = "order_date") //this was put as title instead of data lol
     private Date orderDate;
 
+    @Column(name = "status") //THIS IS FOR THE CART NEWLY ADDED!!!!
+    private String status;
+
     @ManyToOne(fetch = FetchType.LAZY) // Correct
     @JoinColumn(name = "user_id") private User user;
 
