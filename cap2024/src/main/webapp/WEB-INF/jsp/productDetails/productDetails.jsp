@@ -16,6 +16,7 @@
     <c:if test="${not empty product.image}">
         <img src="${product.image}" alt="${product.name}">
     </c:if>
+    <a class="btn btn-primary" href="/order/addToCart?productId=${product.id}">Add To Cart</a>
 </div>
 
 </body>

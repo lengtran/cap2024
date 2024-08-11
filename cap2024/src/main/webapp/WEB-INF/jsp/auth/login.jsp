@@ -63,8 +63,17 @@
                                     </c:if>
                                 </div>
 
+                                <!-- Checkbox -->
+                                <div class="form-check d-flex justify-content-center mb-4">
+                                    <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                                           aria-describedby="registerCheckHelpText" />
+                                    <label class="form-check-label" for="registerCheck">
+                                        Remember Me
+                                    </label>
+                                </div>
+
                                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                                        type="submit">Login</button>
+                                        type="submit" value="Login" onclick="lsRememberMe()">Login</button>
                             </form>
 
                             <div class="d-flex justify-content-center text-center mt-4 pt-1">

@@ -8,6 +8,7 @@ import com.lengper.cap2024.entity.OrderDetail;
 import com.lengper.cap2024.entity.Product;
 import com.lengper.cap2024.entity.User;
 import com.lengper.cap2024.security.AuthenticatedUserUtilities;
+import com.lengper.cap2024.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,8 @@ public class OrderController {
     @Autowired
     private ProductDAO productDAO;
 
+    @Autowired
+    private OrderService orderService;
 
 //    @GetMapping("/location") // sets the url that the page is listening for. once url is added to the end of the url this function will run
 //    public ModelAndView location() {
@@ -67,6 +70,11 @@ public class OrderController {
             return new ModelAndView("redirect:/error/404");
         }
 
+        if (order.getStatus().equals("CART")) {
+            response.addObject("title", "Cart"); //this was fixed by Amber
+        } else {
+            response.addObject("title", "Order Details");
+        }
 
         return response;
     }
@@ -95,9 +103,13 @@ public class OrderController {
         if (orderDetail == null) {
             // If the product is not in the cart, add it
             orderDetail = new OrderDetail();
+
             orderDetail.setOrder(order);
             orderDetail.setProduct(product);
+            orderDetail.setOrderId(order.getId());
+            orderDetail.setProductId(product.getId());
             orderDetail.setQty(1); // Start with a quantity of 1
+
             orderDetailDAO.save(orderDetail);
         } else {
             // If the product is already in the cart, update the quantity
@@ -105,11 +117,13 @@ public class OrderController {
             orderDetailDAO.save(orderDetail);
         }
 
-        response.setViewName("redirect:/order/orderdetail");
+
+
+        List<Map<String,Object>> orderDetails = orderDAO.getOrderDetails(orderDetail.getId());
+        response.addObject("orderDetails", orderDetails);
+
+        response.setViewName("redirect:/order/orderdetail?orderId=" + order.getId());
         return response;
-
-
-
     }
 
 
