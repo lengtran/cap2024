@@ -30,8 +30,8 @@ public class SpringSecurity {
                         new AntPathRequestMatcher("/admin/**"),
                         new AntPathRequestMatcher("/user/**"),
                         new AntPathRequestMatcher("/products"),
-                        new AntPathRequestMatcher("/order/**")
-
+                        new AntPathRequestMatcher("/order/**"),
+                        new AntPathRequestMatcher("/create")
                         ).authenticated() //here we will add the path to the create a review and add to games,
                 //because we want the user to be authenticated before they are able to add a review
                 .anyRequest().permitAll();

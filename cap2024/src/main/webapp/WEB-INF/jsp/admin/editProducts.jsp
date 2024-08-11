@@ -1,12 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<jsp:include page="../include/header.jsp" />
 
 <h2>Edit Product</h2>
 
@@ -32,6 +26,4 @@
     <hr>
 </c:forEach>
 
-
-</body>
-</html>
+<jsp:include page="../include/footer.jsp" />

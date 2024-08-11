@@ -4,11 +4,14 @@ import com.lengper.cap2024.database.ProductDAO;
 import com.lengper.cap2024.database.UserDAO;
 import com.lengper.cap2024.entity.Product;
 import com.lengper.cap2024.entity.User;
+import com.lengper.cap2024.form.CreateProductFormBean;
 import com.lengper.cap2024.security.AuthenticatedUserUtilities;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +45,7 @@ public class AdminController {
         return response;
     }
 
-// this will will delete the actual product from the db, BE CAREFUL USING THISSS!!!!
+// this will delete the actual product from the db, BE CAREFUL USING THISSS!!!!
 
     @PostMapping("/deleteProduct") //this is for deleting products
     public ModelAndView deleteProduct(@RequestParam Integer productId) {
@@ -76,6 +79,39 @@ public class AdminController {
 
         return response;
 
+    }
+
+
+// --------------------this is what was given from the product controller we are just moving it into the admin controller    //this is for the product create page....
+
+    @GetMapping("/create")
+    public ModelAndView createProduct() {
+        ModelAndView response = new ModelAndView("admin/create");
+        response.addObject("createProductFormBean", new CreateProductFormBean());
+        return response;
+    }
+
+
+    // this is for creating a product --------------- we should add an edit feature....
+    @PostMapping("/products/create")
+    public ModelAndView createProductSubmit(@Valid CreateProductFormBean form, BindingResult bindingResult) {
+        ModelAndView response = new ModelAndView("admin/create");
+
+        if (bindingResult.hasErrors()) {
+            response.addObject("bindingResult", bindingResult);
+            response.addObject("form", form);
+            return response;
+        }
+
+        Product product = new Product();
+        product.setName(form.getName());
+        product.setPrice(form.getPrice());
+        product.setImage(form.getImage());
+        product.setDescription(form.getDescription());
+
+        productDAO.save(product);
+
+        return response;
     }
 
 

@@ -1,16 +1,13 @@
 package com.lengper.cap2024.controller;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import com.lengper.cap2024.database.ProductDAO;
 import com.lengper.cap2024.entity.Product;
-import com.lengper.cap2024.form.CreateProductFormBean;
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -43,45 +40,48 @@ public class ProductController {
         response.addObject("product", product);
         return response;
     }
+//
+//    //this is for the product create page....
+//    @GetMapping("/create")
+//    public ModelAndView createProduct() {
+//        ModelAndView response = new ModelAndView("products/create");
+//        response.addObject("createProductFormBean", new CreateProductFormBean());
+//        return response;
+//    }
+//
+//
+//    // this is for creating a product --------------- we should add an edit feature....
+//    @PostMapping("/products/create")
+//    public ModelAndView createProductSubmit(@Valid CreateProductFormBean form, BindingResult bindingResult) {
+//        ModelAndView response = new ModelAndView("products/create");
+//
+//        if (bindingResult.hasErrors()) {
+//            response.addObject("bindingResult", bindingResult);
+//            response.addObject("form", form);
+//            return response;
+//        }
+//
+//        Product product = new Product();
+//        product.setName(form.getName());
+//        product.setPrice(form.getPrice());
+//        product.setImage(form.getImage());
+//        product.setDescription(form.getDescription());
+//
+//        productDAO.save(product);
+//
+//        return response;
+//    }
 
-    //this is for the product create page....
-    @GetMapping("/create")
-    public ModelAndView createProduct() {
-        ModelAndView response = new ModelAndView("products/create");
-        response.addObject("createProductFormBean", new CreateProductFormBean());
-        return response;
-    }
 
-
-    // this is for creating a product --------------- we should add an edit feature....
-    @PostMapping("/products/create")
-    public ModelAndView createProductSubmit(@Valid CreateProductFormBean form, BindingResult bindingResult) {
-        ModelAndView response = new ModelAndView("products/create");
-
-        if (bindingResult.hasErrors()) {
-            response.addObject("bindingResult", bindingResult);
-            response.addObject("form", form);
-            return response;
-        }
-
-        Product product = new Product();
-        product.setName(form.getName());
-        product.setPrice(form.getPrice());
-        product.setImage(form.getImage());
-        product.setDescription(form.getDescription());
-
-        productDAO.save(product);
-
-        return response;
-    }
-
-
-    // this is going to be for the search product
+    // this is going to be for the search product, we will put a lambda here!!!
     @GetMapping("/products/search")
     public ModelAndView searchProducts(@RequestParam(required = false) String search) { //is this red for you????
         ModelAndView response = new ModelAndView("products/products");
         log.debug("The user searched for product: " + search);
         List<Product> products = productDAO.findByName(search);
+
+        products.stream().forEach(product -> log.debug("Product" + product.getName())); // this LAand stream function for the requirement,
+        
         response.addObject("products", products);
         response.addObject("search", search); //this is if we want to see what the user submited after they submitted
         return response;
