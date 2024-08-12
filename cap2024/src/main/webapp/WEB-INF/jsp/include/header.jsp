@@ -32,51 +32,42 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Product</a>
-                    </li>
-
-
-                <sec:authorize access="!isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/account/create-account">Sign Up</a>
-                    </li>
-                </sec:authorize>
-
-                <sec:authorize access="!isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/account/loginPageUrl">Log In</a>
-                    </li>
-                </sec:authorize>
-
-                <sec:authorize access="isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login/logout">Log Out</a>
-                    </li>
-                </sec:authorize>
-
-
-
-                <sec:authorize access="isAuthenticated()">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="admin/products" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Admin
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                        <li><a class="dropdown-item" href="/admin/create">Create</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/admin/products">Delete</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products">Product</a>
                 </li>
+                <sec:authorize access="isAuthenticated()">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="admin/products" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Admin
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/admin/create">Create</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/admin/products">Delete</a></li>
+                        </ul>
+                    </li>
                 </sec:authorize>
             </ul>
-            <!-- Optional search form -->
-            <%-- <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> --%>
+            <!-- Buttons and User Information -->
+            <div class="d-flex ms-auto align-items-center">
+                <sec:authorize access="!isAuthenticated()">
+                    <div class="d-flex me-2">
+                        <a class="btn btn-outline-light me-2" href="/account/create-account">Sign Up</a>
+                        <a class="btn btn-outline-light" href="/account/loginPageUrl">Log In</a>
+                    </div>
+                </sec:authorize>
+                <sec:authorize access="isAuthenticated()">
+                    <div class="d-flex me-2">
+                        <a class="btn btn-outline-light" href="/login/logout">Log Out</a>
+                    </div>
+                    <span class="text-white">Hello, <sec:authentication property="name"/>!</span>
+                </sec:authorize>
+            </div>
         </div>
     </div>
 </nav>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-6n5bq22gfMltS9tVuVYlHgQ6J8Zlu80pKpxxkmktXzJjCB3yFGwWo8t93MQo2MFk" crossorigin="anonymous"></script>
+</body>
+</html>

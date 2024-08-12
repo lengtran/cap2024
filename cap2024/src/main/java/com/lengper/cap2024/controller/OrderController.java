@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,11 +71,13 @@ public class OrderController {
             return new ModelAndView("redirect:/error/404");
         }
 
-        if (order.getStatus().equals("CART")) {
-            response.addObject("title", "Cart"); //this was fixed by Amber
-        } else {
-            response.addObject("title", "Order Details");
-        }
+
+        // This is actually some trash I was trying to get it to say cart or order details depending on cart status.
+//        if (order.getStatus().equals("CART")) {
+//            response.addObject("title", "Cart"); //this was fixed by Amber
+//        } else {
+//            response.addObject("title", "Order Details");
+//        }
 
         return response;
     }
@@ -127,8 +130,28 @@ public class OrderController {
     }
 
 
+    @PostMapping("/order/remove")
+    public ModelAndView removeFromCart(@RequestParam Integer productId) {
+        ModelAndView response = new ModelAndView();
+        Product product = productDAO.findById(productId);
+        User user = authenticatedUserUtilities.getCurrentUser();
+        // now we need to get the order from the database where the status is 'CART' and the user is the logged in user
 
+        // Find the order with status "CART" for the current user
+        Order order = orderDAO.findOrderInCartStatus(user.getUserId());
+        OrderDetail orderDetail = orderDetailDAO.findByOrderAndProduct(order.getId(), product.getId());
+        if (orderDetail != null) {
+            orderDetailDAO.delete(orderDetail);
+        } else {
+            response.addObject("errorMessage", "Cart Item not found.");
+        }
+
+        response.setViewName("redirect:/order/orderdetail?orderId=" + order.getId());
+        return response;
+    }
 
 
 
 }
+
+

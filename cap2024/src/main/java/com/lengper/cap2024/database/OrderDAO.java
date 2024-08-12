@@ -14,9 +14,9 @@ import java.util.Map;
 public interface OrderDAO extends JpaRepository<Order, Integer> { //import this please!!
 
 // this is going to retrieve order details, fufills one of the requirements
-
+// Added order detail id to map, this could break things later.
     @Query(value = "SELECT o.id AS order_id, o.order_date, p.name AS product_name, od.qty AS quantity_ordered, " +
-            "p.price AS product_price, (od.qty * p.price) AS line_item_total " +
+            "p.price AS product_price, (od.qty * p.price) AS line_item_total, p.id AS product_id " +
             "FROM order_details od " +
             "JOIN products p ON od.product_id = p.id " +
             "JOIN orders o ON od.order_id = o.id " +

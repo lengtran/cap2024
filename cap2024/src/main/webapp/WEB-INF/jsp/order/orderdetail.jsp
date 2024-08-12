@@ -33,12 +33,14 @@
                             <td>${detail.quantity_ordered}</td> <%-- please put the sql syntax --%>
                             <td>${detail.product_price}</td>
                             <td>${detail.line_item_total}</td>
-                                <%--                            <td>--%>
+                            <td>
+                                <form action="/order/remove" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="${detail.product_id}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
 
-                                <%--                                <a href="/order/addToCart?productId=${detail.product.id}" class="btn btn-primary">--%>
-                                <%--                                    Add to Cart--%>
-                                <%--                                </a>--%>
-                                <%--                            </td>--%>
+<%--                                <a href="/order/remove?productId=${detail.product_id}" class="btn btn-primary">Remove From Cart</a>--%>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
