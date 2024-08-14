@@ -12,6 +12,8 @@ import lombok.ToString;
 
 public class CreateProductFormBean {
 
+    private Integer id; // this is newly added NOTE TO SELF
+
     @NotEmpty(message = "Name is required")
     private String name;
 

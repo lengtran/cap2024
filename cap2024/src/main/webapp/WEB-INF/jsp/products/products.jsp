@@ -1,5 +1,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <jsp:include page="../include/header.jsp" />
 
@@ -41,17 +43,35 @@
                         <a href="/products/${product.id}" class="btn btn-primary">View Details</a> <%-- please add a button that will say pickup or delivery --%>
 
                         <!-- Add to Cart Button -->
-                        <form action="/order/addToCart" method="get">
+                        <form action="/order/addToCart" method="get"> <%-- we will add a js function alert that will say added to cart in here --%>
                             <input type="hidden" name="productId" value="${product.id}" />
-                            <button type="submit" class="btn btn-success mt-2">Add to Cart</button>
+                            <button type="submit" class="btn btn-success mt-2" id="addToProductsButton">Add to Cart</button> <%-- added an id to that js can work in here.. --%>
                         </form>
+                        <sec:authorize access="hasAuthority('ADMIN')">
+                        <a class="btn btn-success mt-2" href="/admin/editProduct?productId=${product.id}">Edit Product</a>
+                        </sec:authorize>
 
                     </div>
+
                 </div>
             </div>
         </c:forEach>
     </div>
 </div>
+
+<%-- this will be the js, meets the requirement --%>
+<script>
+    document.getElementById("addToProductsButton").addEventListener("click", function() {
+
+        alert("Product added to your list");
+
+        this.closest("form").submit();
+
+    });
+</script>
+
+
+
 
 
 <%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"--%>

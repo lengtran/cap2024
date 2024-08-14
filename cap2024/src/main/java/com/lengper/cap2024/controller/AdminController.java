@@ -3,7 +3,6 @@ package com.lengper.cap2024.controller;
 import com.lengper.cap2024.database.ProductDAO;
 import com.lengper.cap2024.database.UserDAO;
 import com.lengper.cap2024.entity.Product;
-import com.lengper.cap2024.entity.User;
 import com.lengper.cap2024.form.CreateProductFormBean;
 import com.lengper.cap2024.security.AuthenticatedUserUtilities;
 import jakarta.validation.Valid;
@@ -12,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,22 +35,27 @@ public class AdminController {
     @Autowired
     private AuthenticatedUserUtilities authenticatedUserUtilities;
 
-    @GetMapping("/products") //this will be for editing the products page, mostly just displaying this stuff ...
-    public ModelAndView product() {
-        ModelAndView response = new ModelAndView("admin/editProducts");
+    @GetMapping("/editProduct")//This will be for the edit products.....
+    public ModelAndView editProduct(@RequestParam(required = false) Integer productId){ //add required false...
 
-        User user = authenticatedUserUtilities.getCurrentUser();
-        log.debug(user.toString()); //this is just to meet the log requirements....
+        ModelAndView response= new ModelAndView("admin/editProducts");
+        Product product = productDAO.findById(productId);
+        if (product != null) {
+            response.addObject("product", product);
+        } else {
+            response.setViewName("redirect:/products");
+            response.addObject("errorMessage", "Product not found.");
+        }
 
-        response.addObject("products", productDAO.findAll());
         return response;
+
     }
 
 // this will delete the actual product from the db, BE CAREFUL USING THISSS!!!!
 
     @PostMapping("/deleteProduct") //this is for deleting products
     public ModelAndView deleteProduct(@RequestParam Integer productId) {
-        ModelAndView response = new ModelAndView("redirect:/admin/products"); //this is for mapping
+        ModelAndView response = new ModelAndView("redirect:/products"); //should redirect back into the products back to check....NOTE TO SELF
 
         Product product = productDAO.findById(productId);
         if (product != null) {
@@ -62,57 +68,72 @@ public class AdminController {
     }
 
 
-// Amber used create jsp as well as the hidden id
+    // this will be for the post mapping of editProductSubmit
 
+    @PostMapping("/editProductSubmit") //date added 08/11/24 (sunday.....)
+    public ModelAndView editProductSubmit(@Valid CreateProductFormBean form, BindingResult bindingResult) {
+        ModelAndView response = new ModelAndView("admin/editProducts");
 
-    @GetMapping("/editProduct")//This will be for the edit products.....
-    public ModelAndView editProduct(@RequestParam Integer productId){
+        if (bindingResult.hasErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                log.debug("Validation error : " + ((FieldError) error).getField() + " = " + error.getDefaultMessage());
+            }
 
-        ModelAndView response= new ModelAndView("admin/editProducts");
-        Product product = productDAO.findById(productId);
+            response.addObject("bindingResult", bindingResult);
+            response.addObject("createProductFormBean", form); //this is adding the create product form bean please check later for errors....
+            return response;
+        }
+        Product product = productDAO.findById(form.getId());
         if (product != null) {
-            response.addObject("product", product);
+            product.setId(form.getId());
+            product.setName(form.getName());
+            product.setPrice(form.getPrice());
+            product.setImage(form.getImage());
+            product.setDescription(form.getDescription());
+
+            productDAO.save(product);
+            response.setViewName("redirect:/products"); 
         } else {
-            response.setViewName("redirect:/admin/products");
-            response.addObject("errorMessage", "Product not found.");
+            response.addObject("errorMessage", "Product not found");
         }
 
         return response;
 
     }
+}
 
 
 // --------------------this is what was given from the product controller we are just moving it into the admin controller    //this is for the product create page....
 
-    @GetMapping("/create")
-    public ModelAndView createProduct() {
-        ModelAndView response = new ModelAndView("admin/create");
-        response.addObject("createProductFormBean", new CreateProductFormBean());
-        return response;
-    }
-
-
-    // this is for creating a product --------------- we should add an edit feature....
-    @PostMapping("/products/create")
-    public ModelAndView createProductSubmit(@Valid CreateProductFormBean form, BindingResult bindingResult) {
-        ModelAndView response = new ModelAndView("admin/create");
-
-        if (bindingResult.hasErrors()) {
-            response.addObject("bindingResult", bindingResult);
-            response.addObject("form", form);
-            return response;
-        }
-
-        Product product = new Product();
-        product.setName(form.getName());
-        product.setPrice(form.getPrice());
-        product.setImage(form.getImage());
-        product.setDescription(form.getDescription());
-
-        productDAO.save(product);
-
-        return response;
-    }
+//    @GetMapping("/create")
+//    public ModelAndView createProduct() {
+//        ModelAndView response = new ModelAndView("admin/create");
+//        response.addObject("createProductFormBean", new CreateProductFormBean());
+//        return response;
+//    }
+//
+//
+//    // this is for creating a product --------------- we should add an edit feature....
+//    @PostMapping("/products/create")
+//    public ModelAndView createProductSubmit(@Valid CreateProductFormBean form, BindingResult bindingResult) {
+//        ModelAndView response = new ModelAndView("admin/create");
+//
+//        if (bindingResult.hasErrors()) {
+//            response.addObject("bindingResult", bindingResult);
+//            response.addObject("form", form);
+//            return response;
+//        }
+//
+//        Product product = new Product();
+//        product.setName(form.getName());
+//        product.setPrice(form.getPrice());
+//        product.setImage(form.getImage());
+//        product.setDescription(form.getDescription());
+//
+//        productDAO.save(product);
+//
+//        return response;
+//    }
 
 
 
@@ -133,4 +154,4 @@ public class AdminController {
 
 
 
-}
+//}

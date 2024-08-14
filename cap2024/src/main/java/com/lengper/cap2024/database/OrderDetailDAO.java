@@ -5,8 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.List;
-
 public interface OrderDetailDAO extends JpaRepository<OrderDetail, Integer> {
 
     @Query("SELECT od FROM OrderDetail od WHERE od.order.id = :orderId AND od.product.id = :productId")
@@ -14,6 +12,6 @@ public interface OrderDetailDAO extends JpaRepository<OrderDetail, Integer> {
 
 //    OrderDetail findById(Integer id);
     //@Query(value = "select * from orderdetails where order_id = :orderId and product_id = :productId", nativeQuery = true)
-    //    OrderDetail isProductInCart(Integer orderId, Integer productId); this was the class one...... remove later
+    //    OrderDetail isProductInCart(Integer orderId, Integer productId); this was the class one...... remove later WHO ARE THESE PPL HI BYE
 
 }

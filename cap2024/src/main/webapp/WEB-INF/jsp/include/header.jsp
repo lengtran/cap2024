@@ -37,13 +37,13 @@
                 </li>
                 <sec:authorize access="isAuthenticated()">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="admin/products" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/admin/create">Create</a></li>
+                            <li><a class="dropdown-item" href="/create">Create</a></li>
+
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/admin/products">Delete</a></li>
                         </ul>
                     </li>
                 </sec:authorize>
@@ -56,6 +56,7 @@
                         <a class="btn btn-outline-light" href="/account/loginPageUrl">Log In</a>
                     </div>
                 </sec:authorize>
+
                 <sec:authorize access="isAuthenticated()">
                     <div class="d-flex me-2">
                         <a class="btn btn-outline-light" href="/login/logout">Log Out</a>
